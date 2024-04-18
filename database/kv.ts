@@ -19,6 +19,30 @@ export default class KeyValueDatabase {
     `);
   }
 
+  public startCleanupInterval(): void {
+    // Run cleanup every hour
+    setInterval(this.cleanup.bind(this), 3600000);
+  }
+
+  private async cleanup(): Promise<void> {
+    const currentTime = Date.now();
+    return new Promise((resolve, reject) => {
+      this.db.run(
+        `
+        DELETE FROM KeyValue WHERE expire_at < ?
+      `,
+        [currentTime],
+        function (err) {
+          if (err) {
+            reject(err);
+          } else {
+            resolve();
+          }
+        }
+      );
+    });
+  }
+
   public async set(
     key: string,
     values: EmailData[],

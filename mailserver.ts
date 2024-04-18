@@ -3,10 +3,12 @@ import fs from "fs";
 import { MailParser } from "mailparser";
 
 console.log("Running email watcher...");
+const emailRegex = /(.+?)\s<([^>]+)>/;
 
 // Path to the mailbox file
 const mailboxPath: string = "/var/mail/root";
 let processing: boolean = false;
+const expireTime = 24 * 60 * 60 * 1000;
 
 function unixTimestampToTimeString(timestamp: number): string {
   const date = new Date(timestamp * 1000);
@@ -39,7 +41,6 @@ fs.watch(mailboxPath, (eventType: string, filename: string | Buffer | null) => {
 
         // Split the mailbox file into individual email messages
         const emailMessages: string[] = data.split(/^From\s+/m).filter(Boolean);
-
         emailMessages.forEach((emailData: string, index: number) => {
           const mailparser = new MailParser();
           let mailData: {
@@ -57,8 +58,6 @@ fs.watch(mailboxPath, (eventType: string, filename: string | Buffer | null) => {
             data: { content: "", type: "" },
             date: Date.now(),
           };
-
-          const emailRegex = /(.+?)\s<([^>]+)>/;
 
           mailparser.on("end", () => {
             let email = "";
@@ -78,7 +77,7 @@ fs.watch(mailboxPath, (eventType: string, filename: string | Buffer | null) => {
                   subject: mailData.subject,
                 },
               ],
-              10000
+              expireTime
             );
           });
 

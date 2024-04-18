@@ -1,4 +1,4 @@
-import db from "@/database/database";
+import db from "./database/database";
 import fs from "fs";
 import { MailParser } from "mailparser";
 

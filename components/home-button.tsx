@@ -13,7 +13,6 @@ interface HomeButtonProps {
 
 export default function HomeButton({ preName }: HomeButtonProps) {
   const [name, setName] = useState<string>(preName);
-  console.log(name);
   return (
     <div className="flex gap-1">
       <Input

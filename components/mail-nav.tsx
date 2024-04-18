@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Dispatch, SetStateAction, useState, useEffect } from "react";
 import type { EmailData } from "@/lib/types";
 
@@ -77,13 +78,16 @@ export default function MailNav({
         <div>
           <div className="flex gap-1">
             <Input
+              className="md:w-52"
               type="email"
               value={mail}
               onChange={(e) => setMail(e.target.value)}
             />
-            <Button variant="outline" disabled={mail === preMail}>
-              <MousePointerClick />
-            </Button>
+            <Link href={`/${mail.split("@")[0]}`}>
+              <Button variant="outline" disabled={mail === preMail}>
+                <MousePointerClick />
+              </Button>
+            </Link>
             <Button
               variant="outline"
               disabled={isLoading}

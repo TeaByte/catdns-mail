@@ -1,5 +1,4 @@
 import db from "@/database/database";
-console.log(db);
 import MailsSection from "@/components/mails-section";
 
 interface MailProps {
@@ -8,9 +7,7 @@ interface MailProps {
 
 export default async function Mail({ params }: MailProps) {
   const mail = params.slug + "@catdns.in";
-  console.log("mai345345l", mail);
   const mailData = await db.get(mail);
-  console.log(mailData);
   return (
     <main className="flex flex-col items-center justify-between my-4 px-4 md:px-36 gap-3">
       <MailsSection preMail={mail} mailData={mailData} />

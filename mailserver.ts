@@ -94,7 +94,6 @@ fs.watch(mailboxPath, (eventType: string, filename: string | Buffer | null) => {
               data.content.on("readable", () => data.content.read());
               data.content.on("end", () => data.release());
             } else {
-              console.log(data);
               mailData.data.type = data.type;
               mailData.data.content =
                 data.text === undefined ? data.html : data.text;

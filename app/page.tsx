@@ -40,7 +40,7 @@ export default function Home() {
         <p className="text-1xl font-bold text-center pb-2">Made Possible By</p>
         <div className="flex gap-4">
           <Link
-            href="https://postfix.in"
+            href="https://www.postfix.org"
             target="_blank"
             title="Postfix"
             className="bg-white w-fit p-2 rounded-lg opacity-90 flex justify-center items-center hover:opacity-75"

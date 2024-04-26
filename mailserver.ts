@@ -64,7 +64,7 @@ fs.watch(mailboxPath, (eventType: string, filename: string | Buffer | null) => {
               let user = "";
               const match = mailData.sentFrom.match(emailRegex);
               if (match) {
-                user = match[1];
+                user = match[1].replace('"', '');
                 email = match[2];
               }
               db.set(

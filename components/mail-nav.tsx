@@ -78,7 +78,7 @@ export default function MailNav({
         <div>
           <div className="flex gap-1">
             <Input
-              className="md:w-52"
+              className="md:w-64"
               type="email"
               value={mail}
               onChange={(e) => setMail(e.target.value)}

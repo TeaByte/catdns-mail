@@ -4,7 +4,7 @@ import { returnError, returnSuccess } from "@/lib/api";
 
 export async function POST(request: NextRequest) {
   const data = await request.json();
-  let { mail } = data;
+  let { mail }: { mail: string } = data;
 
   if (!mail) {
     return returnError({
@@ -13,6 +13,12 @@ export async function POST(request: NextRequest) {
   }
 
   mail = mail.toLowerCase().trim();
+
+  if (!mail.includes("@catdns.in")) {
+    return returnError({
+      message: "We only support @catdns.in mails!",
+    });
+  }
 
   try {
     const mailData = await db.get(mail);

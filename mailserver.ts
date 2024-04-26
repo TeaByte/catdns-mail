@@ -48,14 +48,14 @@ fs.watch(mailboxPath, (eventType: string, filename: string | Buffer | null) => {
               sentTo: string;
               sentFrom: string;
               subject: string;
-              data: { content: string; type: string };
+              data: { text: string; type: string, textAsHtml?: string };
               date: Number;
             } = {
               attachments: [],
               sentTo: "",
               sentFrom: "",
               subject: "",
-              data: { content: "", type: "" },
+              data: { text: "", type: "" },
               date: Date.now(),
             };
   
@@ -64,7 +64,7 @@ fs.watch(mailboxPath, (eventType: string, filename: string | Buffer | null) => {
               let user = "";
               const match = mailData.sentFrom.match(emailRegex);
               if (match) {
-                user = match[1].replace('"', '');
+                user = match[1].replace(/"/g, '');
                 email = match[2];
               }
               db.set(
@@ -93,9 +93,7 @@ fs.watch(mailboxPath, (eventType: string, filename: string | Buffer | null) => {
                 data.content.on("readable", () => data.content.read());
                 data.content.on("end", () => data.release());
               } else {
-                mailData.data.type = data.type;
-                mailData.data.content =
-                  data.text === undefined ? data.html : data.text;
+                mailData.data = {text: data.text, type: data.type, textAsHtml: data.textAsHtml}
               }
             });
             mailparser.write(emailData);

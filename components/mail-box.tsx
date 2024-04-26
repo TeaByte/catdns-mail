@@ -31,7 +31,7 @@ export default function MailBox({ mailData }: MailBoxProps) {
           <DialogTitle>{mailData.subject}</DialogTitle>
           <DialogDescription>{mailData.sentFrom.email}</DialogDescription>
         </DialogHeader>
-        <div dangerouslySetInnerHTML={{ __html: mailData.data.content }}></div>
+        <div dangerouslySetInnerHTML={{ __html: mailData.data.textAsHtml ? mailData.data.textAsHtml : mailData.data.text  }}></div>
       </DialogContent>
     </Dialog>
   );

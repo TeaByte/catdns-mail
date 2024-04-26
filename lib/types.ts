@@ -5,8 +5,9 @@ export interface EmailData {
   };
   subject: string;
   data: {
-    content: string;
+    text: string;
     type: string;
+    textAsHtml?: string
   };
   date: string;
 }

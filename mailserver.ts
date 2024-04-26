@@ -93,7 +93,11 @@ fs.watch(mailboxPath, (eventType: string, filename: string | Buffer | null) => {
                 data.content.on("readable", () => data.content.read());
                 data.content.on("end", () => data.release());
               } else {
-                mailData.data = {text: data.text, type: data.type, textAsHtml: data.textAsHtml}
+                mailData.data = {
+                  text: data.text === undefined ? data.html : data.text, 
+                  type: data.type, 
+                  textAsHtml: data.textAsHtml === undefined ? data.html: data.textAsHtml
+                }
               }
             });
             mailparser.write(emailData);

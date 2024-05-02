@@ -1,3 +1,6 @@
+this code is shit!
+moved to https://github.com/TeaByte/catway-mail
+
 ## Getting Started
 
 Follow these steps to get started with CatDNS Mail:
